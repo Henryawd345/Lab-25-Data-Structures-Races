@@ -1,4 +1,11 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <list>
+#include <set>
+#include <algorithm>
+#include <iomanip>
 #include <chrono>
 using namespace std;
 
