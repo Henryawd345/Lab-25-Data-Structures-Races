@@ -56,9 +56,9 @@ int main() {
 
     //sort section
     { 
-        vector<string> v = lines;
+        vector<string> vec = lines;
         auto start = high_resolution_clock::now();
-        sort(v.begin(), v.end());
+        sort(vec.begin(), vec.end());
         auto end = high_resolution_clock::now();
         vec_sort_us = duration_cast<microseconds>(end - start).count();
     }
@@ -72,9 +72,9 @@ int main() {
     // set are already sorted
     // Insert section
      {
-        vector<string> v = lines;
+        vector<string> vec = lines;
         auto start = high_resolution_clock::now();
-        v.insert(v.begin() + static_cast<long long>(v.size()/2), "TESTCODE");
+        vec.insert(vec.begin() + static_cast<long long>(vec.size()/2), "TESTCODE");
         auto end = high_resolution_clock::now();
         vec_ins_us = duration_cast<microseconds>(end - start).count();
     }
@@ -96,9 +96,9 @@ int main() {
     }
     // Delete section
      {
-        vector<string> v = lines;
+        vector<string> vec = lines;
         auto start = high_resolution_clock::now();
-        v.erase(v.begin() + static_cast<long long>(v.size()/2));
+        vec.erase(vec.begin() + static_cast<long long>(vec.size()/2));
         auto end = high_resolution_clock::now();
         vec_del_us = duration_cast<microseconds>(end - start).count();
     }
