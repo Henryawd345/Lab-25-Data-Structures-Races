@@ -11,7 +11,7 @@
 using namespace std;
 using namespace std::chrono;
 
-vector<string> read_lines(string path){
+vector<string> read_lines(const string &path){
     ifstream in(path);
     vector<string> lines;
     string s;
@@ -80,8 +80,9 @@ int main() {
     }
     {
         list<string> lst(lines.begin(), lines.end());
-        auto it = lst.begin(); advance(it, static_cast<long long>(lst.size()/2));
         auto start = high_resolution_clock::now();
+        auto it = lst.begin(); 
+        advance(it, static_cast<long long>(lst.size()/2));
         lst.insert(it, "TESTCODE");
         auto end = high_resolution_clock::now();
         lst_ins_us = duration_cast<microseconds>(end - start).count();
@@ -93,7 +94,31 @@ int main() {
         auto end = high_resolution_clock::now();
         set_ins_us = duration_cast<microseconds>(end - start).count();
     }
-
+    // Delete section
+     {
+        vector<string> v = lines;
+        auto start = high_resolution_clock::now();
+        v.erase(v.begin() + static_cast<long long>(v.size()/2));
+        auto end = high_resolution_clock::now();
+        vec_del_us = duration_cast<microseconds>(end - start).count();
+    }
+    {
+        list<string> lst(lines.begin(), lines.end());
+        auto start = high_resolution_clock::now();
+        auto it = lst.begin();
+        advance(it, static_cast<long long>(lst.size()/2));
+        lst.erase(it);
+        auto end = high_resolution_clock::now();
+        lst_del_us = duration_cast<microseconds>(end - start).count();
+    }
+    {
+        set<string> st(lines.begin(), lines.end());
+        auto it = st.begin(); advance(it, static_cast<long long>(st.size()/2));
+        auto start = high_resolution_clock::now();
+        st.erase(it);
+        auto end = high_resolution_clock::now();
+        set_del_us = duration_cast<microseconds>(end - start).count();
+    }
 
 
     cout << left << setw(12) << "Operation"
@@ -111,10 +136,15 @@ int main() {
         << setw(12) << lst_sort_us
         << setw(12) << set_sort_us << " (Already sorted)" <<"\n";
 
-cout << left << setw(12) << "Insert"
+    cout << left << setw(12) << "Insert"
         << setw(12) << vec_ins_us
         << setw(12) << lst_ins_us
         << setw(12) << set_ins_us << "\n";
+
+    cout << left << setw(12) << "Delete"
+         << setw(12) << vec_del_us
+         << setw(12) << lst_del_us
+         << setw(12) << set_del_us << "\n";
 
     
 
