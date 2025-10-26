@@ -31,7 +31,7 @@ int main() {
     long long vec_sort_us, lst_sort_us, set_sort_us = -1;
     long long vec_ins_us,  lst_ins_us,  set_ins_us;
     long long vec_del_us,  lst_del_us,  set_del_us;
-
+    //us = microsecond
     //Read section
     {
         auto start = high_resolution_clock::now();
@@ -70,22 +70,51 @@ int main() {
         lst_sort_us = duration_cast<microseconds>(end - start).count();
     }
     // set are already sorted
+    // Insert section
+     {
+        vector<string> v = lines;
+        auto start = high_resolution_clock::now();
+        v.insert(v.begin() + static_cast<long long>(v.size()/2), "TESTCODE");
+        auto end = high_resolution_clock::now();
+        vec_ins_us = duration_cast<microseconds>(end - start).count();
+    }
+    {
+        list<string> lst(lines.begin(), lines.end());
+        auto it = lst.begin(); advance(it, static_cast<long long>(lst.size()/2));
+        auto start = high_resolution_clock::now();
+        lst.insert(it, "TESTCODE");
+        auto end = high_resolution_clock::now();
+        lst_ins_us = duration_cast<microseconds>(end - start).count();
+    }
+    {
+        set<string> st(lines.begin(), lines.end());
+        auto start = high_resolution_clock::now();
+        st.insert("TESTCODE");
+        auto end = high_resolution_clock::now();
+        set_ins_us = duration_cast<microseconds>(end - start).count();
+    }
+
 
 
     cout << left << setw(12) << "Operation"
-         << setw(12) << "Vector(us)"
-         << setw(12) << "List(us)"
-         << setw(12) << "Set(us)" << "\n";
+        << setw(12) << "Vector(us)"
+        << setw(12) << "List(us)"
+        << setw(12) << "Set(us)" << "\n";
 
     cout << left << setw(12) << "Read"
-         << setw(12) << vec_read_us
-         << setw(12) << lst_read_us
-         << setw(12) << set_read_us << "\n";
+        << setw(12) << vec_read_us
+        << setw(12) << lst_read_us
+        << setw(12) << set_read_us << "\n";
 
    cout << left << setw(12) << "Sort"
-         << setw(12) << vec_sort_us
-         << setw(12) << lst_sort_us
-         << setw(12) << set_sort_us << " (Already sorted)" <<"\n";
+        << setw(12) << vec_sort_us
+        << setw(12) << lst_sort_us
+        << setw(12) << set_sort_us << " (Already sorted)" <<"\n";
+
+cout << left << setw(12) << "Insert"
+        << setw(12) << vec_ins_us
+        << setw(12) << lst_ins_us
+        << setw(12) << set_ins_us << "\n";
 
     
 
